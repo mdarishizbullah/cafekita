@@ -1,11 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db = "cafekita";
-
-// Create connection
-$koneksi = mysqli_connect($servername, $username, $password, $db);
+include "conn.php";
 
 $idLunas = $_POST['idLunas'];
 

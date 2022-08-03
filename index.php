@@ -6,7 +6,7 @@
     <meta name="author" content="Muhammad Daris Hizbullah, Haizpro">
     <meta name="description" content="Sistem Informasi Cafe">
     <meta name="theme-color">
-    <link rel="apple-touch-icon" href="asset/icon_192x192.png">
+    <link rel="apple-touch-icon" href="asset/default.png">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <title>Cafe Kita
@@ -21,11 +21,6 @@
 
 	?>
   <body class="container-fluid">
-  <div style="display: none;justify-content: center;align-items: center;height: 844px;">
-  
-  <div id="loading" class="spinner-border text-secondary" role="status">
-</div>
-</div>
 	<div id="cafeKita" style="display: block;">
     <div id="home" style="display: block;">
       <div class="fixed-top">
@@ -48,13 +43,13 @@
 			if ($dataProduct->num_rows > 0) {
 			while($row = mysqli_fetch_object($dataProduct)) {?>
             <section class="col bg-light rounded">
-              <img src="<?= $row->prd_image ?>" class="card-img-top rounded">
+              <img src="./asset/<?= $row->prd_image ?>" class="card-img-top rounded">
               <div class="py-0">
                 <p class="mb-0 text-center" id="new_text"><a><?= $row->prd_nama ?></a>
                 </p>
                 <div class="container-fluid justify-content-center">
                   <div class="row">
-                    <p class="small col-8 px-4 mt-2">Rp. <?= rupiah($row->harga) ?>
+                    <p class="small col-8 px-4 mt-2">Rp. <?= rupiah($row->prd_harga) ?>
                     </p>
 					<input id="namaProduk" class="d-none" value="<?= $row->prd_nama?>"></input>
 					<input id="hargaProduk" class="d-none" value="<?= $row->prd_harga?>"></input>
@@ -121,7 +116,7 @@ for ($x = 1; $x <= 30; $x++) {?>
   <input type="text" class="form-control" id="idPelanggan"  style="display: none;" disabled>
 							<div class="col-12 text-end">
 	<button class="btn btn-primary mt-2" onClick="mDataTrans()">Pesan sekarang</button>
-	<button class="btn btn-primary mt-2" onClick=" mKerjaanA()">test</button>
+	<button class="btn btn-primary mt-2" onClick=" mKerjaanA()" style="display: none;">test</button>
   </div>
                           </div>
 						  
@@ -130,20 +125,8 @@ for ($x = 1; $x <= 30; $x++) {?>
 	<div id="job" class="container" style="display: none;">
 	
 		<?php
-		$servernamea = "localhost";
-$usernamea = "root";
-$passworda = "";
-$dba = "cafekita";
-
-// Create connection
-$conna = new mysqli($servernamea, $usernamea, $passworda, $dba);
-
-// Check connection
-if ($conna->connect_error) {
-  die("Connection failed: " . $conna->connect_error);
-}
 	$dataPesananBersyarat = "SELECT * FROM nota WHERE not_ver='1' ";
-	$dataPesanan = $conna->query($dataPesananBersyarat);
+	$dataPesanan = $conn->query($dataPesananBersyarat);
 	if ($dataPesanan->num_rows > 0) {
 		while($row = mysqli_fetch_object($dataPesanan)) {
 	?>
@@ -213,7 +196,7 @@ if ($conna->connect_error) {
             </svg>
           </button>
         </li>
-		<li class="nav-item">
+		<li class="nav-item" style="display: none;">
           <button type="button" onclick="pindahJob()" id="iJob" class="nav-link position-relative">
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
 			  <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
@@ -226,39 +209,6 @@ if ($conna->connect_error) {
       </ul>
     </div>
   </div>
- 
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content rounded-5 shadow">
-      <div class="modal-header p-5 pb-4 border-bottom-0">
-        <!-- <h5 class="modal-title">Modal title</h5> -->
-        <h2 class="fw-bold mb-0">Daftar sekarang
-        </h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
-      <!-- Modal body -->
-      <div class="modal-body p-5 pt-0">
-        <form class="">
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address
-            </label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password
-            </label>
-          </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Sign up
-          </button>
-          <small class="text-muted">Dengan mengklik Sign up, Anda menyetujui persyaratan penggunaan.
-          </small>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 </div>
 
 <script src="js/bootstrap.bundle.min.js" charset="utf-8">

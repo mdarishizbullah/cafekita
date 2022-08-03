@@ -65,7 +65,7 @@ function createList(id, nama, harga, pic, jumlah) {
 					</svg></a>
 					<div class="col-11"></div>
 					<div class="row">
-					<img src="${pic}" class="rounded-3 col-3">
+					<img src="./asset/${pic}" class="rounded-3 col-3">
 						<div class="row col-9">
 						<div class="row">
 						 <p class=" small mb-0" >${nama}</p>
@@ -261,30 +261,5 @@ function checkCash(){
 		}else{
 			document.getElementById("notif0").style.display='none';
 		}
-	}
-}
-
-let ready = (callback) => {
-  if (document.readyState != "loading") callback();
-  else document.addEventListener("DOMContentLoaded", callback);
-  loading.style.display='flex';
-  cafeKita.style.display='none';
-}
-
-ready(() => { 
-	loading.style.display='none';
-	cafeKita.style.display='block';
-	loading.style.display='none';
-	//mKerjaanA();
-});
-
-function mKerjaanA(){
-	console.log("ke klick");
-	let xhr = new XMLHttpRequest();
-	xhr.open('GET','php/jumlahpesanan.php',true);
-	xhr.onload = function(){
-		kerjaanA.style.display='block';
-		console.log(this.responseText);
-		//kerjaanA.innerHTML = this.responseText;
 	}
 }

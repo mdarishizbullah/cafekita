@@ -1,11 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db = "cafekita";
-
-// Create connection
-$koneksi = mysqli_connect($servername, $username, $password, $db);
+include "conn.php";
 
 $id_nota = $_POST['id'];
 $not_tmakan = $_POST['notMakan'];
@@ -18,10 +12,10 @@ $not_total = $_POST['totalNota'];
 
 $sql = "INSERT INTO nota (id_nota, not_tmakan, not_meja ,id_pelanggan, not_waktu, not_jPembayaran, not_uCash, not_total, not_ver) VALUES ('$id_nota','$not_tmakan','$not_meja','$id_pelanggan','$not_waktu','$not_jPembayaran','$not_uCash','$not_total','1')";
 
-if ($koneksi->query($sql) === TRUE) {
+if ($conn->query($sql) === TRUE) {
  echo "New record created successfully";
 } else {
-  echo "Error: " . $sql . "<br>" . $koneksi->error;
+  echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 
@@ -36,7 +30,7 @@ function insert_into_db($data){
 	$k=implode(",", $k);
 	$v=implode(",", $v);
 
-	$conn= mysqli_connect("localhost","root","","cafekita");
+	include "conn.php";
 	$sql="INSERT INTO transaksi($k) VALUES($v)";
 	$run_query=mysqli_query($conn,$sql);
 

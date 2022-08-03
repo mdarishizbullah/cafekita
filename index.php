@@ -16,7 +16,7 @@
 	include "php/conn.php";
 	include "php/helper.php";
 
-	$sql = "SELECT * FROM produk ORDER BY nama ASC";
+	$sql = "SELECT * FROM produk ORDER BY prd_nama ASC";
 	$dataProduct = $conn->query($sql);
 
 	?>
@@ -48,19 +48,19 @@
 			if ($dataProduct->num_rows > 0) {
 			while($row = mysqli_fetch_object($dataProduct)) {?>
             <section class="col bg-light rounded">
-              <img src="<?= $row->pic ?>" class="card-img-top rounded">
+              <img src="<?= $row->prd_image ?>" class="card-img-top rounded">
               <div class="py-0">
-                <p class="mb-0 text-center" id="new_text"><a><?= $row->nama ?></a>
+                <p class="mb-0 text-center" id="new_text"><a><?= $row->prd_nama ?></a>
                 </p>
                 <div class="container-fluid justify-content-center">
                   <div class="row">
                     <p class="small col-8 px-4 mt-2">Rp. <?= rupiah($row->harga) ?>
                     </p>
-					<input id="namaProduk" class="d-none" value="<?= $row->nama?>"></input>
-					<input id="hargaProduk" class="d-none" value="<?= $row->harga?>"></input>
-					<input id="picProduk" class="d-none" value="<?= $row->pic?>"></input>
-					<input id="idProduk" class="d-none" value="<?= $row->id?>"></input>
-                    <button type="button" class="btn btn-outline-none col-3 mt-0" onClick="tambahKeranjang(<?= $row->id?>, '<?= $row->nama?>', '<?= $row->harga?>', '<?= $row->pic?>', 1)">
+					<input id="namaProduk" class="d-none" value="<?= $row->prd_nama?>"></input>
+					<input id="hargaProduk" class="d-none" value="<?= $row->prd_harga?>"></input>
+					<input id="picProduk" class="d-none" value="<?= $row->prd_image?>"></input>
+					<input id="idProduk" class="d-none" value="<?= $row->id_product?>"></input>
+                    <button type="button" class="btn btn-outline-none col-3 mt-0" onClick="tambahKeranjang(<?= $row->id_product?>, '<?= $row->prd_nama?>', '<?= $row->prd_harga?>', '<?= $row->prd_image?>', 1)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
                         <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                       </svg>

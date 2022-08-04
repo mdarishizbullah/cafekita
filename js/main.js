@@ -17,7 +17,7 @@ function myTimer() {
 
 function mencari(){
 	  // Declare variables
-  var input, filter, div, a, section, i, txtValue;
+  let input, filter, div, a, section, i, txtValue;
   input = document.getElementById('inputanKu');
   filter = input.value.toUpperCase();
   div = document.getElementById("itemProduk");
@@ -66,7 +66,7 @@ function createList(id, nama, harga, pic, cat, jumlah) {
 					</svg></a>
 					<div class="col-11"></div>
 					<div class="row">
-					<img src="./asset/${pic}" class="rounded-3 col-3">
+					<img src="./asset/menu/${pic}" class="rounded-3 col-3">
 						<div class="row col-9">
 						<div class="row">
 						 <p class=" small mb-0" >${cat}</p>

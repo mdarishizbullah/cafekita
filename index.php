@@ -44,11 +44,11 @@
 			if ($dataProduct->num_rows > 0) {
 			while($row = mysqli_fetch_object($dataProduct)) {?>
             <section class="col bg-light rounded">
-              <img src="./asset/<?= $row->prd_image ?>" class="card-img-top rounded">
+              <img src="./asset/menu/<?= $row->prd_image ?>" class="card-img-top rounded">
               <div class="py-0">
-                <p class="mb-0 text-center" id="new_text"><a><?= ucwords(strtolower($row->id_pkategori)) ?></a>
+                <p class="mb-0 text-center" id="new_text"><b><?= ucwords(strtolower($row->id_pkategori)) ?></b>
                 </p>
-				<p class="mb-0 text-center" id="new_text"><a><?= ucwords(strtolower($row->prd_nama)) ?></a>
+				<p class="mb-0 text-center" id="new_texta"><a><?= ucwords(strtolower($row->prd_nama)) ?></a>
                 </p>
                 <div class="container-fluid justify-content-center">
                   <div class="row">

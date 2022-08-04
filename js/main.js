@@ -7,6 +7,7 @@ let waktu = d.getTime();
 let loading = document.getElementById("loading");
 let cafeKita = document.getElementById("cafeKita");
 let kerjaanA = document.getElementById("cafeKita");
+
 setInterval(myTimer, 100);
 
 function myTimer() {
@@ -34,7 +35,7 @@ function mencari(){
   }
 }
 
-function tambahKeranjang(id, nama, harga, pic, jumlah){
+function tambahKeranjang(id, nama, harga, pic, cat, jumlah){
 	if (keranjang.some(checkId)){
 	let jumlah3 = new Number(jumlah);
 	let jumlah2 = new Number(document.getElementById("jumlah"+id).value);
@@ -48,7 +49,7 @@ function tambahKeranjang(id, nama, harga, pic, jumlah){
 		keranjang.push(id)
 		document.getElementById("keranjangA").style.display='block'
 		document.getElementById("keranjangA").innerHTML = keranjang.length
-		createList(id, nama, harga, pic, jumlah)
+		createList(id, nama, harga, pic, cat, jumlah)
 		menghitung(id)
 		kembalian()
 	}
@@ -58,7 +59,7 @@ function tambahKeranjang(id, nama, harga, pic, jumlah){
 	}
 }
 
-function createList(id, nama, harga, pic, jumlah) {
+function createList(id, nama, harga, pic, cat, jumlah) {
 	let newProduk = `<div class="row row-cols-12" name="hapus"> 
 										<a class="col-1 px-1"   onclick="removeItem(this);hapusData(${id})"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
 					  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
@@ -68,12 +69,14 @@ function createList(id, nama, harga, pic, jumlah) {
 					<img src="./asset/${pic}" class="rounded-3 col-3">
 						<div class="row col-9">
 						<div class="row">
+						 <p class=" small mb-0" >${cat}</p>
+						 </div>
+						<div class="row">
 						 <p class=" small mb-0" >${nama}</p>
 						 <input name="idP" class="d-none" value="${id}"></input>
 						 </div>
-						 
 						<div class="row">
-						<p class="col-12 small" >Harga Rp. ${harga}</p>
+						<p class="col-12 small mb-0" >Harga Rp. ${ parseFloat(harga).toLocaleString('en')}</p>
 						<input class="col-12 small d-none" id="harga${id}" value="${harga}">
 						</div>
 						</div>
@@ -85,12 +88,19 @@ function createList(id, nama, harga, pic, jumlah) {
                                 <input class="form-control text-center border-0 border-md input-items" name="jumlah" id="jumlah${id}" type="number" value="${jumlah}" onkeyup="menghitung(${id})" onchange="menghitung(${id})">
                               </div>
                             </div>
+							
                           </div>
 						  <div class="row">
+                            <div class="col-6 text-muted" style="display: none;">Sub Total</div>
+                            <input class="col-6 text-end input-items border-0 bg-white mt-1" name="subTotal" id="hasil${id}" onload="menghitung(${id})" style="display: none;" disabled>
+               
+					</div>
+					<div class="row">
                             <div class="col-6 text-muted">Sub Total</div>
-                            <input class="col-6 text-end input-items border-0 bg-white mt-1" name="subTotal" id="hasil${id}" onload="menghitung(${id})" disabled>
+                            <input class="col-6 text-end input-items border-0 bg-white mt-1"  id="hasilC${id}" disabled>
                
 					</div>`
+					
 	keranjangBox.insertAdjacentHTML('afterbegin', newProduk);
 }
 
@@ -99,7 +109,9 @@ function menghitung(id){
 	var harga = document.getElementById('harga'+id).value;
 	var hasil = input * harga;
 	let hasilBox = document.getElementById("hasil"+id);
+	let hasilBoxC = document.getElementById("hasilC"+id);
 	hasilBox.setAttribute('value', hasil);
+	hasilBoxC.setAttribute('value', ("Rp. ")+parseFloat(hasil).toLocaleString('en'));
 	keranjang.forEach(mencobaHitung);
 	kembalian()
 }
@@ -112,6 +124,7 @@ function mencobaHitung(index, item){
 	let haBK = new Number(bokKeranjang[index].value);
 	let a = totalSemua += haBK;
 	document.getElementById("total").setAttribute('value', totalSemua);
+	document.getElementById("totalC").setAttribute('value', ("Rp. ")+parseFloat(totalSemua).toLocaleString('en'));
 	}
 }
 
@@ -146,7 +159,8 @@ function kembalian(){
 	let c = document.getElementById("total").value;
 	let b = document.getElementById("uSiap").value;
 	let a = b - c;
-	document.getElementById("sisaKembalian").setAttribute('value', a)
+	document.getElementById("sisaKembalian").setAttribute('value', a);
+	document.getElementById("sisaKembalianC").setAttribute('value', ("Rp. ")+parseFloat(a).toLocaleString('en'));
 }
 
 function pindahCart(){

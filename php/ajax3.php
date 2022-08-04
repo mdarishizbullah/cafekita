@@ -13,7 +13,7 @@ $not_total = $_POST['totalNota'];
 $sql = "INSERT INTO nota (id_nota, not_tmakan, not_meja ,id_pelanggan, not_waktu, not_jPembayaran, not_uCash, not_total, not_ver) VALUES ('$id_nota','$not_tmakan','$not_meja','$id_pelanggan','$not_waktu','$not_jPembayaran','$not_uCash','$not_total','1')";
 
 if ($conn->query($sql) === TRUE) {
- echo "New record created successfully";
+ echo "Pesanan diterima";
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }

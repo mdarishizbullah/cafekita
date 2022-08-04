@@ -6,7 +6,8 @@
     <meta name="author" content="Muhammad Daris Hizbullah, Haizpro">
     <meta name="description" content="Sistem Informasi Cafe">
     <meta name="theme-color">
-    <link rel="apple-touch-icon" href="asset/default.png">
+    <link rel="apple-touch-icon" href="./asset/default.png">
+	<link href="./asset/default.png" rel="icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <title>Cafe Kita
@@ -16,7 +17,7 @@
 	include "php/conn.php";
 	include "php/helper.php";
 
-	$sql = "SELECT * FROM produk ORDER BY prd_nama ASC";
+	$sql = "SELECT * FROM produk ORDER BY id_product ASC";
 	$dataProduct = $conn->query($sql);
 
 	?>
@@ -45,7 +46,9 @@
             <section class="col bg-light rounded">
               <img src="./asset/<?= $row->prd_image ?>" class="card-img-top rounded">
               <div class="py-0">
-                <p class="mb-0 text-center" id="new_text"><a><?= $row->prd_nama ?></a>
+                <p class="mb-0 text-center" id="new_text"><a><?= ucwords(strtolower($row->id_pkategori)) ?></a>
+                </p>
+				<p class="mb-0 text-center" id="new_text"><a><?= ucwords(strtolower($row->prd_nama)) ?></a>
                 </p>
                 <div class="container-fluid justify-content-center">
                   <div class="row">
@@ -55,7 +58,7 @@
 					<input id="hargaProduk" class="d-none" value="<?= $row->prd_harga?>"></input>
 					<input id="picProduk" class="d-none" value="<?= $row->prd_image?>"></input>
 					<input id="idProduk" class="d-none" value="<?= $row->id_product?>"></input>
-                    <button type="button" class="btn btn-outline-none col-3 mt-0" onClick="tambahKeranjang(<?= $row->id_product?>, '<?= $row->prd_nama?>', '<?= $row->prd_harga?>', '<?= $row->prd_image?>', 1)">
+                    <button type="button" class="btn btn-outline-none col-3 mt-0" onClick="tambahKeranjang(<?= $row->id_product?>, '<?= ucwords(strtolower($row->prd_nama))?>', '<?= $row->prd_harga?>', '<?= $row->prd_image?>','<?= ucwords(strtolower($row->id_pkategori))?>', 1)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
                         <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                       </svg>
@@ -83,8 +86,8 @@
 
 
                             <div class="col-6 text-muted mt-2">Total</div>
-                            <input class="col-6 col-md-12 text-end text-md-center border-0 bg-white" id="total" disabled>
-							
+                            <input class="col-6 col-md-12 text-end text-md-center border-0 bg-white" id="total" style="display: none;" disabled>
+							<input class="col-6 col-md-12 text-end text-md-center border-0 bg-white" id="totalC" disabled>
 								<select class="form-select mt-2" id="notMakan">
   <option value="makan ditempat">Makan ditempat</option>
   <option value="dibawa pulang">Dibawa pulang</option>
@@ -108,7 +111,8 @@ for ($x = 1; $x <= 30; $x++) {?>
 </div>
 <p id="notif0" class="text-danger"></p>
 <label for="floatingInput">Kembaliannya </label>
-<input class="col-12 col-md-12 text-end text-md-center border-0 bg-white" id="sisaKembalian" disabled>
+<input class="col-12 col-md-12 text-end text-md-center border-0 bg-white" id="sisaKembalian" style="display: none;" disabled>
+<input class="col-12 col-md-12 text-end text-md-center border-0 bg-white" id="sisaKembalianC" disabled>
 
 </div>
 	<input type="number" class="form-control" id="waktuMs"  style="display: none;" disabled>

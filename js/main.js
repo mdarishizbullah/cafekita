@@ -170,9 +170,12 @@ function pindahCart(){
 	a.classList.add("active");
 	let c = document.getElementById("iJob");
 	c.classList.remove("active");
-	document.getElementById("menuKeranjang").style.display='block'
-	document.getElementById("home").style.display='none'
-	document.getElementById("job").style.display='none'
+	let d = document.getElementById("iPen");
+	d.classList.remove("active");
+	document.getElementById("menuKeranjang").style.display='block';
+	document.getElementById("home").style.display='none';
+	document.getElementById("job").style.display='none';
+	document.getElementById("pen").style.display='none';
 }
 
 function pindahHome(){
@@ -182,9 +185,12 @@ function pindahHome(){
 	a.classList.remove("active");
 	let c = document.getElementById("iJob");
 	c.classList.remove("active");
-	document.getElementById("menuKeranjang").style.display='none'
-	document.getElementById("home").style.display='block'
-	document.getElementById("job").style.display='none'
+	let d = document.getElementById("iPen");
+	d.classList.remove("active");
+	document.getElementById("menuKeranjang").style.display='none';
+	document.getElementById("home").style.display='block';
+	document.getElementById("job").style.display='none';
+	document.getElementById("pen").style.display='none';
 }
 
 function pindahJob(){
@@ -194,9 +200,28 @@ function pindahJob(){
 	a.classList.remove("active");
 	let c = document.getElementById("iJob");
 	c.classList.add("active");
-	document.getElementById("menuKeranjang").style.display='none'
-	document.getElementById("home").style.display='none'
-	document.getElementById("job").style.display='block'
+	let d = document.getElementById("iPen");
+	d.classList.remove("active");
+	document.getElementById("menuKeranjang").style.display='none';
+	document.getElementById("home").style.display='none';
+	document.getElementById("job").style.display='block';
+	document.getElementById("pen").style.display='none';
+	document.getElementById("myAudio").pause(); 
+}
+
+function pindahPen(){
+	let b = document.getElementById("iHome");
+	b.classList.remove("active");
+	let a = document.getElementById("iCart");
+	a.classList.remove("active");
+	let c = document.getElementById("iJob");
+	c.classList.remove("active");
+	let d = document.getElementById("iPen");
+	d.classList.add("active");
+	document.getElementById("menuKeranjang").style.display='none';
+	document.getElementById("home").style.display='none';
+	document.getElementById("job").style.display='none';
+	document.getElementById("pen").style.display='block';
 }
 
 function hapusDataSemua() {
@@ -231,7 +256,7 @@ function mDataTrans(){
 	let meja = document.getElementById("mejaB").value;
 	let uCash = document.getElementById("uSiap").value;
 	let jPembayaran = document.getElementById("mPBayar").value;
-	let notWaktu = d.toDateString()+d.toLocaleTimeString();
+	let notWaktu = d.toDateString()+" "+d.toLocaleTimeString();
 	let idPelanggan = document.getElementById("idPelanggan").value;
 	let notMakan = document.getElementById("notMakan").value;
 	let totalNota = document.getElementById("total").value;
@@ -248,6 +273,8 @@ function mDataTrans(){
 	hapusDataSemua();
 	pindahHome();
 	alert("Terimaksih sudah memesan di Cafe Kita. no pemesanan : "+idSesuai+", Harap untuk tidak berpindah meja petugas kami akan mendatangi meja :"+meja);
+	document.getElementById("total").setAttribute('value', 0);
+	document.getElementById("totalC").setAttribute('value', ("Rp. ")+parseFloat(0).toLocaleString('en'));
 }
 
 function lunas(idL){
@@ -256,7 +283,7 @@ function lunas(idL){
 	xhr.open('POST','php/ajax4.php',true);
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.onload = function(){
-		console.log(this.responseText);
+		//console.log(this.responseText);
 		}
 	xhr.send("idLunas="+idLunas);
 	alert(idLunas+" telah lunas");
@@ -277,3 +304,195 @@ function checkCash(){
 		}
 	}
 }
+
+function countJob(){
+	getText("php/jumlahpesanan.php");
+	
+	async function getText(file) {
+  let myObject = await fetch(file);
+  let myText = await myObject.text();
+  if (myText == "0"){
+	  document.getElementById("kerjaanA").style.display='none';
+  }else{
+	  document.getElementById("kerjaanA").style.display='block';
+  document.getElementById("kerjaanA").innerHTML = myText;
+  document.getElementById("updateJob").setAttribute('value', myText);
+  document.getElementById("perubahanDataS").setAttribute('value', myText);
+  }
+}
+	//async function getText(file).then(response => response.json()).then(response=>
+	//	document.getElementById("kerjaanA").innerHTML = response;
+	//);
+}
+
+setInterval(countJob, 1000);
+setInterval(pendapatan, 1000);
+setInterval(checkUpdated, 900);
+setInterval(checkJenisPembayaran, 1000);
+
+//setInterval(dataPesanan, 1000);
+
+function pendapatan() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+	  let pendapatanHarian = this.responseText;
+    document.getElementById("pendapatanA").innerHTML = pendapatanHarian;
+    }
+  xhttp.open("GET", "php/pendapatan.php", true);
+  xhttp.send();
+}
+
+function checkUpdated() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+	  let jumlahDataBaru = this.responseText;
+		let dataYangAda =  document.getElementById("updateJob").value;
+		if (dataYangAda == jumlahDataBaru){
+			//document.getElementById("myAudio").pause(); 
+			//console.log("data sama");
+			//console.log("ini data yang ada"+dataYangAda);
+			//console.log("ini data yang baru"+jumlahDataBaru);
+		}else{
+			document.getElementById("myAudio").play(); 
+			//console.log("data baru");
+			//console.log("ini data yang ada"+dataYangAda);
+			//console.log("ini data yang baru"+jumlahDataBaru);
+		}
+    }
+  xhttp.open("GET", "php/jumlahpesanan.php", true);
+  xhttp.send();
+}
+
+/*function detailPesanan(id) {
+	let id_nota = id;
+  let xhttp = new XMLHttpRequest();
+  xhttp.open('POST','php/datapesanan.php',true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.onload = function() {
+	  let dataPesananTerkini = JSON.parse(this.responseText);
+	  console.log(dataPesananTerkini.not_tmakan);
+	  //console.log(dataPesananTerkini);
+    }
+  xhttp.send("id_nota="+id_nota);
+}*/
+
+function detailPesanan(id){
+	document.getElementById("untukDPrint").style.display='block';
+	/*let id_nota = id;
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST','php/datapesanan.php',true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.onload = function(){
+		let notaP = JSON.parse(this.responseText);
+		
+		document.getElementById("notaPr").innerHTML = "Nomor Nota: "+notaP[0].id_nota;
+		document.getElementById("tmakan").innerHTML = notaP.not_tmakan;
+		document.getElementById("nmrMja").innerHTML = "Nomor Meja: " +notaP.not_meja;
+		document.getElementById("notWkt").innerHTML = "Tanggal: " +notaP.not_waktu;
+		
+		console.log(notaP);
+		
+		}
+	xhr.send("id_nota="+id_nota);*/
+}
+
+function checkJenisPembayaran(){
+	let tipePembayaran = document.getElementById("mPBayar").value;
+	if (tipePembayaran == "cashless"){
+	document.getElementById("uSiap").setAttribute('value', document.getElementById("total").value);
+	//console.log("ini bayar cashless"+document.getElementById("total").value);
+	}
+	/*let id_nota = id;
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST','php/datapesanan.php',true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.onload = function(){
+		let notaP = JSON.parse(this.responseText);
+		
+		document.getElementById("notaPr").innerHTML = "Nomor Nota: "+notaP[0].id_nota;
+		document.getElementById("tmakan").innerHTML = notaP.not_tmakan;
+		document.getElementById("nmrMja").innerHTML = "Nomor Meja: " +notaP.not_meja;
+		document.getElementById("notWkt").innerHTML = "Tanggal: " +notaP.not_waktu;
+		
+		console.log(notaP);
+		
+		}
+	xhr.send("id_nota="+id_nota);*/
+}
+
+function perubahanData(){
+	//document.getElementById("myAudio").play();
+	//console.log("ada perubahan"+document.getElementById("perubahanDataS").value);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	
+  // code
+})
+
+// check notification permission
+const notificationPermission = new Promise((response) => {
+    if ("Notification" in window) {
+        if (Notification.permission === "granted") {
+            response({
+                status: "success",
+                text: "user accepted the notifications",
+            })
+        } else {
+            Notification.requestPermission()
+                .then(permission => {
+                    if (permission === "granted") {
+                        response({
+                            status: "success",
+                            text: "user accepted the notifications",
+                        })
+                    } else {
+                        response({
+                            status: "error",
+                            text: "User did not accept notifications",
+                        })
+                    }
+                })
+        }
+    } else {
+        response({
+            status: "error",
+            text: "This Browser does not support desktop notification !",
+        })
+    }
+})
+
+let userPermission;
+async function checkNotificationPermission() {
+    const permission = await notificationPermission;
+    if (permission.status === "success") {
+        userPermission = true;
+    } else {
+        console.warn("User did not accept notifications !");
+        userPermission = false;
+    }
+}
+checkNotificationPermission();
+
+let jam = 1000 * 60 * 60;
+setInterval(tanggal, 1000);
+
+function tanggal(){
+	let tanggalSekarang = d.toDateString();
+	document.getElementById("tanggal").setAttribute('value', tanggalSekarang);
+}
+
+/*setInterval(pendapatanHarianCash, 1000);
+
+function pendapatanHarianCash(){
+	let tanggalDiambil = document.getElementById("tanggal").value;
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST','php/pendpatanhariancash.php',true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.onload = function(){
+		//console.log(this.responseText);
+		//let jumlahUangCash =JSON.parse(this.responseText).then(response => );
+		console.log(jumlahUangCash);
+		}
+	xhr.send("tanggalDiambil="+tanggalDiambil);
+}*/

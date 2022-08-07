@@ -127,12 +127,111 @@ for ($x = 1; $x <= 30; $x++) {?>
 	</div>
 	</div>
 	<div id="job" class="container" style="display: none;">
-	
+	<audio id="myAudio">
+	  <source src="asset/DEPAPEPE-Hi-D.mp3" type="audio/mpeg">
+	</audio>
+	 <input type="text" class="form-control" onchange="perubahanData()" id="perubahanDataS"  style="display: none;" disabled>
+      <div class="fixed-bottom px-4 py-3 d-none">
+        <button type="button" class="btn btn-ligth" id="tombolP" onclick="printAja()" >Print</button>
+      </div>
+	<input type="text" class="form-control" id="updateJob"  style="display: none;" disabled>
 		<?php
 	$dataPesananBersyarat = "SELECT * FROM nota WHERE not_ver='1' ";
 	$dataPesanan = $conn->query($dataPesananBersyarat);
 	if ($dataPesanan->num_rows > 0) {
 		while($row = mysqli_fetch_object($dataPesanan)) {
+	?>
+	<div class="row">
+		<p class="small col-2 mb-0 mt-2"><?= $row->id_nota ?></p>
+		<p class="small col-2 mb-0 mt-2"><?= $row->not_waktu ?></p>
+		<p class="small col-1 mb-0 mt-2">Meja :<?= $row->not_meja ?></p>
+		<p class="small col-2 mb-0 mt-2"><?= $row->not_tmakan ?></p>
+		<p class="small col-1 mb-0 mt-2"><?= $row->not_jPembayaran ?></p>
+		<p class="small col-3 mb-0 mt-2">Kembalian : Rp. <?= rupiah(($row->not_uCash)-($row->not_total))
+		?></p>
+		<div class="container col-1" onclick="lunas(<?= $row->id_nota ?>);removeItem(this); removeItem(document.getElementById('untukDPrint<?= $row->id_nota ?>'));">
+		<button class="btn btn-success btn-sm mb-1 mt-1">lunas</button>
+		</div>
+		<div class="container col-1" onclick="detailPesanan()" style="display: block;">
+		<button class="btn btn-primary btn-sm mb-1 mt-1" style="display: none;">detail</button>
+		</div>
+		<hr class="mt-0 mb-0">
+	</div>
+	<div style="display: block;">
+        <br>
+      <div class="row" id="untukDPrint<?= $row->id_nota ?>">
+        <p class="text-center mt-0 mb-0" onclick="printAja()">JS-89.Corp</p>
+      </div>
+      <div class="row">
+        <p class="text-center mt-0 mb-0" onclick="printAja()">Jalan Siliwangi No 109</p>
+      </div>
+      <div class="row">
+        <p class="text-center mt-0 mb-1" onclick="printAja()">081385571413</p>
+      </div>
+      <div class="row">
+        <hr class="border border-dark opacity-50 mb-1">
+      </div>
+      <div class="row">
+        <p class="mt-0 mb-0" id="notaPr">Nomor Nota: <?= $row->id_nota ?></p>
+      </div>
+      <div class="row">
+        <p class="mt-0 mb-0" id="tmakan"><?= $row->not_tmakan ?></p>
+      </div>
+      <div class="row">
+        <p class="mt-0 mb-0" id="nmrMja">Nomor Meja: <?= $row->not_meja ?></p>
+      </div>
+      <div class="row">
+        <p class="mt-0 mb-0">Kasir     : Admin</p>
+      </div>
+      <div class="row">
+        <p class="mt-0" id="notWkt"><?= $row->not_waktu ?></p>
+      </div>
+	  <?php
+	  $idPush = $row->id_nota;
+	$isiDariNota = "SELECT * FROM transaksi t JOIN produk p ON t.id_produk = p.id_product WHERE id_nota='$idPush ' ";
+	$dataNota = $conn->query($isiDariNota);
+	if ($dataNota->num_rows > 0) {
+		while($rows = mysqli_fetch_object($dataNota)) {
+	?>
+      <div class="row">
+        <p class="mt-0 mb-0"><?= $rows-> prd_nama?></p>
+      </div>
+      <div class="row">
+        <p class="mt-0 mb-0 col-8"><?= $rows-> trs_quantity?> x <?= rupiah($rows-> prd_harga)?></p>
+        <p class="text-end mt-0 mb-0 col-4"><?php $rph=($rows-> trs_quantity)*($rows-> prd_harga); echo rupiah($rph); ?></p>
+      </div>
+      <?php 
+	  
+	  }
+			}
+			?>
+      <div class="row">
+        <p class="text-end mt-3 mb-0">Total : <?= rupiah($row-> not_total)?></p>
+      </div>
+      <div class="row">
+        <p class="text-end mt-0 mb-0">Bayar Tunai : <?= rupiah($row-> not_uCash)?></p>
+      </div>
+      <div class="row">
+        <p class="text-end mt-0 mb-2">Kembali : <?= rupiah(($row->not_uCash)-($row-> not_total)) ?></p>
+      </div>
+      <br>
+    </div>
+	<?php }
+			}
+			?>
+	</div>
+	
+	<div id="pen" class="container" style="display: none;">
+	<br>
+	  <br>
+	  <br>
+	   <br>
+	  <br>
+		<?php
+	$dataPesananBersyarat2 = "SELECT * FROM nota WHERE not_ver='2' ";
+	$dataPesanan2 = $conn->query($dataPesananBersyarat2);
+	if ($dataPesanan2->num_rows > 0) {
+		while($row = mysqli_fetch_object($dataPesanan2)) {
 	?>
 	<div class="row">
 		<p class="small col-2 mb-0 mt-2"><?= $row->id_nota ?></p>
@@ -153,6 +252,56 @@ for ($x = 1; $x <= 30; $x++) {?>
 	<?php }
 			}
 			?>
+			<div class="fixed-top">
+			<div class="row mb-0 bg-light">
+          <ul class="nav nav-pills nav-fill col-4">
+            <li class="nav-item">
+              <a class="nav-link">
+                <label>Cash</label>
+              </a>
+            </li>
+          </ul>
+		  <ul class="nav nav-pills nav-fill col-4">
+            <li class="nav-item">
+              <a class="nav-link">
+                <label>Cashless</label>
+              </a>
+            </li>
+          </ul>
+		  <ul class="nav nav-pills nav-fill col-4">
+            <li class="nav-item">
+              <a class="nav-link">
+                <label>Total Pendapatan</label>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="row mb-0 mt-0 py-0 bg-light">
+          <ul class="nav nav-pills nav-fill col-4">
+            <li class="nav-item">
+              <a class="nav-link">
+                <input type="number" class="form-control" id="totalCash" disabled>
+				<input type="text" class="form-control text-center" id="tanggal" style="display: none;" disabled>
+              </a>
+            </li>
+          </ul>
+		  <ul class="nav nav-pills nav-fill col-4">
+            <li class="nav-item">
+              <a class="nav-link">
+                <input type="number" class="form-control" id="totalCashless"  disabled>
+              </a>
+            </li>
+          </ul>
+		  <ul class="nav nav-pills nav-fill col-4">
+            <li class="nav-item">
+              <a class="nav-link">
+                <input type="number" class="form-control" id="totalHarian"  disabled>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+	  
 	</div>
   <!--bottom menu-->
   <br>
@@ -200,12 +349,26 @@ for ($x = 1; $x <= 30; $x++) {?>
             </svg>
           </button>
         </li>
-		<li class="nav-item" style="display: none;">
+		<li class="nav-item" style="display: block;">
           <button type="button" onclick="pindahJob()" id="iJob" class="nav-link position-relative">
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
 			  <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
 			</svg>
-            <span id="kerjaanA" class="position-absolute top-0 start-50 badge rounded-pill bg-danger" style="display: none;">
+			
+            <span id="kerjaanA" class="position-absolute top-0 start-50 badge rounded-pill bg-danger" style="display: block;">
+              
+            </span>
+          </button> 
+        </li>
+		<li class="nav-item" style="display: block;">
+          <button type="button" onclick="pindahPen()" id="iPen" class="nav-link position-relative">
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
+  <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
+  <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
+  <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
+</svg>
+            <span id="pendapatanA" class="position-absolute top-0 start-50 badge rounded-pill bg-danger" style="display: block;">
               
             </span>
           </button> 

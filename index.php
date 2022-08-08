@@ -44,8 +44,25 @@
 			if ($dataProduct->num_rows > 0) {
 			while($row = mysqli_fetch_object($dataProduct)) {?>
             <section class="col bg-light rounded card mt-1 px-0">
-              <img src="./asset/menu/<?= $row->prd_image ?>" class="card-img-top rounded">
+              <img src="./asset/menu/<?= $row->prd_image ?>" class="card-img-top rounded" data-bs-toggle="modal" data-bs-target="#myModal<?= $row->id_product?>">
               <div class="py-0">
+			  <div class="modal" id="myModal<?= $row->id_product?>">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+      <p class="modal-title mb-0"><?= ucwords(strtolower($row->prd_nama)) ?></p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+	  <img src="./asset/menu/<?= $row->prd_image ?>" class="mt-0">
+
+    </div>
+  </div>
+</div>
+
                 <p class="mb-0 text-center" id="new_text" style="display: none;"><b><?= ucwords(strtolower($row->id_pkategori)) ?></b>
                 </p>
 				<p class="mb-0 text-center" id="new_texta"><a><?= ucwords(strtolower($row->prd_nama)) ?></a>

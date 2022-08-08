@@ -142,12 +142,12 @@ for ($x = 1; $x <= 30; $x++) {?>
 		while($row = mysqli_fetch_object($dataPesanan)) {
 	?>
 	<div class="row">
-		<p class="small col-2 mb-0 mt-2"><?= $row->id_nota ?></p>
-		<p class="small col-2 mb-0 mt-2"><?= $row->not_waktu ?></p>
-		<p class="small col-1 mb-0 mt-2">Meja :<?= $row->not_meja ?></p>
-		<p class="small col-2 mb-0 mt-2"><?= $row->not_tmakan ?></p>
-		<p class="small col-1 mb-0 mt-2"><?= $row->not_jPembayaran ?></p>
-		<p class="small col-3 mb-0 mt-2">Kembalian : Rp. <?= rupiah(($row->not_uCash)-($row->not_total))
+		<p class="small col-2 mb-0 mt-2" style="display: none;"><?= $row->id_nota ?></p>
+		<p class="small col-5 mb-0 mt-2"><?= $row->not_waktu ?></p>
+		<p class="small col-3 mb-0 mt-2">Meja :<?= $row->not_meja ?></p>
+		<p class="small col-2 mb-0 mt-2"style="display: none;"><?= $row->not_tmakan ?></p>
+		<p class="small col-1 mb-0 mt-2" style="display: none;"><?= $row->not_jPembayaran ?></p>
+		<p class="small col-3 mb-0 mt-2" style="display: none;">Kembalian : Rp. <?= rupiah(($row->not_uCash)-($row->not_total))
 		?></p>
 		<div class="container col-1" onclick="lunas(<?= $row->id_nota ?>);removeItem(this); removeItem(document.getElementById('untukDPrint<?= $row->id_nota ?>'));">
 		<button class="btn btn-success btn-sm mb-1 mt-1">lunas</button>
@@ -158,18 +158,17 @@ for ($x = 1; $x <= 30; $x++) {?>
 		<hr class="mt-0 mb-0">
 	</div>
 	<div style="display: block;">
-        <br>
       <div class="row" id="untukDPrint<?= $row->id_nota ?>">
-        <p class="text-center mt-0 mb-0" onclick="printAja()">JS-89.Corp</p>
+        <p class="text-center mt-0 mb-0" onclick="printAja()" style="display: none;">JS-89.Corp</p>
       </div>
       <div class="row">
-        <p class="text-center mt-0 mb-0" onclick="printAja()">Jalan Siliwangi No 109</p>
+        <p class="text-center mt-0 mb-0" onclick="printAja()" style="display: none;">Jalan Siliwangi No 109</p>
       </div>
       <div class="row">
-        <p class="text-center mt-0 mb-1" onclick="printAja()">081385571413</p>
+        <p class="text-center mt-0 mb-1" onclick="printAja()" style="display: none;">081385571413</p>
       </div>
       <div class="row">
-        <hr class="border border-dark opacity-50 mb-1">
+        <hr class="border border-dark opacity-50 mb-1" style="display: none;">
       </div>
       <div class="row">
         <p class="mt-0 mb-0" id="notaPr">Nomor Nota: <?= $row->id_nota ?></p>
@@ -178,13 +177,13 @@ for ($x = 1; $x <= 30; $x++) {?>
         <p class="mt-0 mb-0" id="tmakan"><?= $row->not_tmakan ?></p>
       </div>
       <div class="row">
-        <p class="mt-0 mb-0" id="nmrMja">Nomor Meja: <?= $row->not_meja ?></p>
+        <p class="mt-0 mb-0" id="nmrMja" style="display: none;">Nomor Meja: <?= $row->not_meja ?></p>
       </div>
       <div class="row">
-        <p class="mt-0 mb-0">Kasir     : Admin</p>
+        <p class="mt-0 mb-0" style="display: none;">Kasir     : Admin</p>
       </div>
       <div class="row">
-        <p class="mt-0" id="notWkt"><?= $row->not_waktu ?></p>
+        <p class="mt-0" id="notWkt" style="display: none;"><?= $row->not_waktu ?></p>
       </div>
 	  <?php
 	  $idPush = $row->id_nota;
@@ -235,7 +234,7 @@ for ($x = 1; $x <= 30; $x++) {?>
 	?>
 	<div class="row">
 		<p class="small col-2 mb-0 mt-2"><?= $row->id_nota ?></p>
-		<p class="small col-2 mb-0 mt-2"><?= $row->not_waktu ?></p>
+		<p class="small col-2 mb-0 mt-2" ><?= $row->not_waktu ?></p>
 		<p class="small col-1 mb-0 mt-2">Meja :<?= $row->not_meja ?></p>
 		<p class="small col-2 mb-0 mt-2"><?= $row->not_tmakan ?></p>
 		<p class="small col-1 mb-0 mt-2"><?= $row->not_jPembayaran ?></p>

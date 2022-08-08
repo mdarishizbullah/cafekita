@@ -17,7 +17,7 @@
 	include "php/conn.php";
 	include "php/helper.php";
 
-	$sql = "SELECT * FROM produk ORDER BY id_product ASC";
+	$sql = "SELECT * FROM produk ORDER BY id_paccess ASC";
 	$dataProduct = $conn->query($sql);
 
 	?>
@@ -43,16 +43,16 @@
 		  <?php 
 			if ($dataProduct->num_rows > 0) {
 			while($row = mysqli_fetch_object($dataProduct)) {?>
-            <section class="col bg-light rounded">
+            <section class="col bg-light rounded card mt-1 px-0">
               <img src="./asset/menu/<?= $row->prd_image ?>" class="card-img-top rounded">
               <div class="py-0">
-                <p class="mb-0 text-center" id="new_text"><b><?= ucwords(strtolower($row->id_pkategori)) ?></b>
+                <p class="mb-0 text-center" id="new_text" style="display: none;"><b><?= ucwords(strtolower($row->id_pkategori)) ?></b>
                 </p>
 				<p class="mb-0 text-center" id="new_texta"><a><?= ucwords(strtolower($row->prd_nama)) ?></a>
                 </p>
                 <div class="container-fluid justify-content-center">
                   <div class="row">
-                    <p class="small col-8 px-4 mt-2">Rp. <?= rupiah($row->prd_harga) ?>
+                    <p class="small col-8 px-4 mt-2"><?= rupiah($row->prd_harga) ?>
                     </p>
 					<input id="namaProduk" class="d-none" value="<?= $row->prd_nama?>"></input>
 					<input id="hargaProduk" class="d-none" value="<?= $row->prd_harga?>"></input>
@@ -241,7 +241,7 @@ for ($x = 1; $x <= 30; $x++) {?>
 		<p class="small col-1 mb-0 mt-2"><?= $row->not_jPembayaran ?></p>
 		<p class="small col-3 mb-0 mt-2">Kembalian : Rp. <?= rupiah(($row->not_uCash)-($row->not_total))
 		?></p>
-		<div class="container col-1" onclick="lunas(<?= $row->id_nota ?>);removeItem(this)">
+		<div class="container col-1" onclick="lunas(<?= $row->id_nota ?>);removeItem(this);window.print()">
 		<button class="btn btn-success btn-sm mb-1 mt-1">lunas</button>
 		</div>
 		<div class="container col-1" style="display: none;">

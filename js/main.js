@@ -348,6 +348,7 @@ function checkUpdated() {
 	  let jumlahDataBaru = this.responseText;
 		let dataYangAda =  document.getElementById("updateJob").value;
 		if (dataYangAda == jumlahDataBaru){
+			//document.getElementById("myAudio").play(); 
 			//document.getElementById("myAudio").pause(); 
 			//console.log("data sama");
 			//console.log("ini data yang ada"+dataYangAda);

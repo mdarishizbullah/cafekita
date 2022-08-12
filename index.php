@@ -6,6 +6,7 @@
     <meta name="author" content="Muhammad Daris Hizbullah, Haizpro">
     <meta name="description" content="Sistem Informasi Cafe">
     <meta name="theme-color">
+	<link rel="manifest" href="/manifest.json">    
     <link rel="apple-touch-icon" href="./asset/default.png">
 	<link href="./asset/default.png" rel="icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -152,6 +153,10 @@ for ($x = 1; $x <= 30; $x++) {?>
         <button type="button" class="btn btn-ligth" id="tombolP" onclick="printAja()" >Print</button>
       </div>
 	<input type="text" class="form-control" id="updateJob"  style="display: none;" disabled>
+		<div id="detailNota">
+			</div>
+		<div id="kerjaanLooping">
+		
 		<?php
 	$dataPesananBersyarat = "SELECT * FROM nota WHERE not_ver='1' ";
 	$dataPesanan = $conn->query($dataPesananBersyarat);
@@ -235,6 +240,8 @@ for ($x = 1; $x <= 30; $x++) {?>
 	<?php }
 			}
 			?>
+			</div>
+			
 	</div>
 	
 	<div id="pen" class="container" style="display: none;">

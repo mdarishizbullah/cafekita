@@ -327,7 +327,7 @@ function countJob(){
 
 setInterval(countJob, 1000);
 setInterval(pendapatan, 1000);
-setInterval(checkUpdated, 900);
+setInterval(checkUpdated, 500);
 setInterval(checkJenisPembayaran, 1000);
 
 //setInterval(dataPesanan, 1000);
@@ -345,16 +345,18 @@ function pendapatan() {
 function checkUpdated() {
   let xhttp = new XMLHttpRequest();
   xhttp.onload = function() {
-	  let jumlahDataBaru = this.responseText;
+	  let jumlahDataBaru = JSON.parse(this.responseText);
 		let dataYangAda =  document.getElementById("updateJob").value;
-		if (dataYangAda == jumlahDataBaru){
-			//document.getElementById("myAudio").play(); 
+		if (dataYangAda < jumlahDataBaru && jumlahDataBaru != 0){
+			document.getElementById("myAudio").play(); 
 			//document.getElementById("myAudio").pause(); 
 			//console.log("data sama");
 			//console.log("ini data yang ada"+dataYangAda);
 			//console.log("ini data yang baru"+jumlahDataBaru);
-		}else{
-			document.getElementById("myAudio").play(); 
+		} 
+		if(dataYangAda==0 && jumlahDataBaru ==1){
+			document.getElementById("myAudio").play();
+			//document.getElementById("myAudio").play(); 
 			//console.log("data baru");
 			//console.log("ini data yang ada"+dataYangAda);
 			//console.log("ini data yang baru"+jumlahDataBaru);
@@ -363,19 +365,6 @@ function checkUpdated() {
   xhttp.open("GET", "php/jumlahpesanan.php", true);
   xhttp.send();
 }
-
-/*function detailPesanan(id) {
-	let id_nota = id;
-  let xhttp = new XMLHttpRequest();
-  xhttp.open('POST','php/datapesanan.php',true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.onload = function() {
-	  let dataPesananTerkini = JSON.parse(this.responseText);
-	  console.log(dataPesananTerkini.not_tmakan);
-	  //console.log(dataPesananTerkini);
-    }
-  xhttp.send("id_nota="+id_nota);
-}*/
 
 function detailPesanan(id){
 	document.getElementById("untukDPrint").style.display='block';
@@ -496,4 +485,99 @@ function pendapatanHarianCash(){
 		console.log(jumlahUangCash);
 		}
 	xhr.send("tanggalDiambil="+tanggalDiambil);
+}*/
+
+function ambilData(){
+	let xhra = new XMLHttpRequest();
+	xhra.onreadystatechange = function(){
+		if (xhra.readyState == 4 && xhra.status == 200){
+			let notaIsi = JSON.parse(this.responseText);
+			//console.log(notaIsi);
+		}
+	
+	}
+	xhra.open('GET', 'php/datamasuk.php', true)
+	xhra.send();
+}
+
+ambilData();
+
+//ambilDataAja();
+setInterval(ambilDataAja, 1000);
+
+function ambilDataAja(){
+	let containerJob = document.getElementById("kerjaanLooping");
+	fetch('php/datamasuk.php').then(response => response.json()).then(response => {
+		let barisData ='';
+		for(i = 0; i < response.length; i++){
+			
+			barisData += '<div class="row"><p class="small col-3 mb-0 mt-2">' +response[i].not_waktu +'</p><p class="small col-3 mb-0 mt-2">Meja :' +response[i].not_meja +'</p><div class="container col-1" onclick="lunas('+response[i].id_nota +')"><button class="btn btn-success btn-sm mb-1 mt-1">lunas</button></div><div class="container col-1" onclick="detailPesanan('+response[i].id_nota +')" style="display: block;"><button class="btn btn-primary btn-sm mb-1 mt-1" style="display: block;" onclick="detailPesanan('+response[i].id_nota +')">detail</button></div></div><div id="notaUntuk'+response[i].id_nota +'"></div>';
+			
+			//response[i].id_nota = id_nota
+			//response[i].not_tmakan = not_tmakan
+			//listData(id_nota, not_tmakan)
+		}
+		containerJob.innerHTML = barisData;
+		//console.log(response.length);
+		//const dataPesanan = response;
+		//let barisData ='';
+		//dataPesanan.forEach(d=>barisData+=tampilData(d));
+		//let containerJob = document.getElementById("kerjaanLooping");
+		//containerJob.innerHTML = barisData;
+	});
+}
+//setInterval(detailPesanan, 1000);
+function detailPesanan(id_nota) {
+	let containerDetailNota = document.getElementById("detailNota");
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST','php/detailNota.php',true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.onload = function(){
+		let isiDalamNota = JSON.parse(this.responseText);
+		//console.log(isiDalamNota);
+			
+		let headerDetailNota = '<div class="container"><br><div class="row"><p class="text-center mt-0 mb-0" onclick="printAja()">JS-89.Corp</p></div><div class="row"><p class="text-center mt-0 mb-0" onclick="printAja()">Jalan Siliwangi No 109</p></div><div class="row"><p class="text-center mt-0 mb-1">081385571413</p></div><div class="row"><hr class="border border-dark opacity-50 mb-1"></div><div class="row"><p class="mt-0 mb-0">Nomor Nota: '+isiDalamNota[0].id_nota+'</p></div><div class="row"><p class="mt-0 mb-0">Makan di tempat</p> </div><div class="row"><p class="mt-0 mb-0">Nomor Meja: '+isiDalamNota[0].not_meja+'</p></div><div class="row"><p class="mt-0 mb-0">Kasir     : Admin</p></div><div class="row"><p class="mt-0">Tanggal   : '+isiDalamNota[0].not_waktu+'</p><div>';
+	  let barisDataNota ='';
+		for(i = 0; i < isiDalamNota.length; i++){
+      barisDataNota += `<div class="row">
+        <p class="mt-0 mb-0">`+isiDalamNota[i].prd_nama+`</p>
+      </div>
+      <div class="row">
+        <p class="mt-0 mb-0 col-8">`+isiDalamNota[i].trs_quantity+` x `+parseFloat(isiDalamNota[i].prd_harga).toLocaleString('en')+`</p>
+        <p class="text-end mt-0 mb-0 col-4">`+parseFloat(isiDalamNota[i].trs_quantity*isiDalamNota[i].prd_harga).toLocaleString('en')+`</p>
+		</div>`};
+	  	
+		let footerDetailNota = `<div class="row">
+        <p class="text-end mt-3 mb-0">Total : `+parseFloat(isiDalamNota[0].not_total).toLocaleString('en')+`</p>
+      </div>
+      <div class="row">
+        <p class="text-end mt-0 mb-0">Bayar Tunai : `+parseFloat(isiDalamNota[0].not_uCash).toLocaleString('en')+`</p>
+      </div>
+      <div class="row">
+        <p class="text-end mt-0 mb-2">Kembali : `+parseFloat(isiDalamNota[0].not_uCash-isiDalamNota[0].not_total).toLocaleString('en')+`</p>
+      </div>'`;
+		containerDetailNota.innerHTML = headerDetailNota + barisDataNota + footerDetailNota;
+		//console.log(isiDalamNota);
+		//response => response.json().then(response => console.log(response));
+		//let jumlahUangCash =JSON.parse(this.responseText).then(response => );
+		//console.log(jumlahUangCash);
+		}
+	xhr.send("id_nota="+id_nota);
+}
+
+/*function listData(id_nota, not_tmakan){
+	let containerJob = document.getElementById("kerjaanLooping");
+	
+	let newData = `<div class="row">
+	<p class="small col-3 mb-0 mt-2">${id_nota}</p>
+	<p class="small col-3 mb-0 mt-2">${not_tmakan}</p>
+		<div class="container col-1" onclick="lunas(${id_nota});removeItem(this);">
+		<button class="btn btn-success btn-sm mb-1 mt-1">lunas</button>
+		</div>
+		<div class="container col-1" onclick="detailPesanan()" style="display: block;">
+		<button class="btn btn-primary btn-sm mb-1 mt-1" style="display: none;">detail</button>
+		</div>
+		<hr class="mt-0 mb-0">
+	</div>`
+	containerJob.insertAdjacentHTML('afterbegin', newData);
 }*/

@@ -7,3 +7,5 @@
 -Untuk tampilan website dapat menggunakan inspect element kemudian atur ukuran web dengan ukuran iphone 13
 
 Project ini masih perlu perbaikan karna masih bersifar monolitic dimana backend dan frontend terdapat dalam satu server.
+## Suppport This Project
+[Klik dinisi](https://trakteer.id/mdarish/tip?quantity=1)

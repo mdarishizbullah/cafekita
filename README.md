@@ -8,4 +8,4 @@
 
 Project ini masih perlu perbaikan karna masih bersifar monolitic dimana backend dan frontend terdapat dalam satu server.
 ## Suppport This Project
-[Klik dinisi](https://trakteer.id/mdarish/tip?quantity=1)
+[trakteer](https://trakteer.id/mdarish/tip?quantity=1)

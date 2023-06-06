@@ -20,8 +20,15 @@
 ![screenshot-small](https://pbs.twimg.com/media/Fx6T8JHaQAANDVD?format=png&name=small)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6UM0haQAA_CWm?format=png&name=small)
 #### Manager
-![screenshot-small]()
+![screenshot-small](https://pbs.twimg.com/media/Fx6UpMUaUAEtMmw?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6VFWUaMAYp2_g?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6VVCCaIAAriCn?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6VjNvaIAEfwNk?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6WjkAaYAEhWZs?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6W9z6acAAljoZ?format=png&name=small)
 #### Direktur
+![screenshot-small]()
+![screenshot-small]()
 ### Deskripsi
 *Sistem informasi Cafe dibuat oleh Muhammad Daris Hizbullah dengan menggunakan PHP,Vanilla JavaScript
 *Framework yang digunakan hanya Bootstrap untuk mengatur UI

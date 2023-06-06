@@ -16,11 +16,9 @@
 ![screenshot-small](https://pbs.twimg.com/media/Fx6SI_EaIAA8xrC?format=png&name=small)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6SjstaEAEBZoj?format=png&name=small)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6TBvzaQAAIb2E?format=png&name=small)
-![screenshot-small]()
-![screenshot-small]()
-![screenshot-small]()
-![screenshot-small]()
-![screenshot-small]()
+![screenshot-small](https://pbs.twimg.com/media/Fx6TcktaUAAYzn3?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6T8JHaQAANDVD?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6UM0haQAA_CWm?format=png&name=small)
 #### Manager
 ![screenshot-small]()
 #### Direktur

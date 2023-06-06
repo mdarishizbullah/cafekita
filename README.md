@@ -1,6 +1,6 @@
 ## Sistem Informasi Berbasis Web, Memesan Minuman / Makanan Di Meja
 [Try it](https://demo.susumurniindonesia.com/index.php)
-## Tampilan
+### Tampilan(User Interface)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6G7NpacAYgmFU?format=png&name=small)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6HnFNaQAEXzAu?format=png&name=small)
 *Sistem informasi Cafe dibuat oleh Muhammad Daris Hizbullah dengan menggunakan PHP,Vanilla JavaScript

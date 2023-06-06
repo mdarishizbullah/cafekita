@@ -1,6 +1,7 @@
 ## Sistem Informasi Berbasis Web, Memesan Minuman / Makanan Di Meja
 [Try it](https://demo.susumurniindonesia.com/index.php)
 ### Tampilan(User Interface)
+#### Pelanggan
 ![screenshot-small](https://pbs.twimg.com/media/Fx6G7NpacAYgmFU?format=png&name=small)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6HnFNaQAEXzAu?format=png&name=small)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6Imk0agAAB-m3?format=png&name=small)

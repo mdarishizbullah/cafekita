@@ -8,6 +8,8 @@
 ![screenshot-small](https://pbs.twimg.com/media/Fx6JPdZaAAEYR1w?format=png&name=small)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6JgbLaQAIwXF-?format=png&name=small)
 ![screenshot-small](https://pbs.twimg.com/media/Fx6J8k5aUAAWTa2?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6Kti1aUAAGB8L?format=png&name=small)
+![screenshot-small](https://pbs.twimg.com/media/Fx6LB3AaUAEm7vo?format=png&name=small)
 ### Deskripsi
 *Sistem informasi Cafe dibuat oleh Muhammad Daris Hizbullah dengan menggunakan PHP,Vanilla JavaScript
 *Framework yang digunakan hanya Bootstrap untuk mengatur UI

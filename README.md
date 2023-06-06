@@ -29,9 +29,15 @@
 #### Direktur
 Dapat melihat laporan, dan dapat melakukan pemesanan minuman
 ### Mencoba akses
-Kasir=> no: 99999999999 password: adminkasir
-Manager=> no: 88888888888 password: adminmanager
-Direktur=> no: 77777777777 password: admindirektur
+#### Kasir
+* no: 99999999999
+* password: adminkasir
+#### Manager
+* no: 88888888888
+* password: adminmanager
+#### Direktur
+* no: 77777777777
+* password: admindirektur
 ### Deskripsi
 * Sistem informasi Cafe dibuat oleh Muhammad Daris Hizbullah dengan menggunakan PHP,Vanilla JavaScript
 * Framework yang digunakan hanya Bootstrap untuk mengatur UI
